@@ -1,0 +1,39 @@
+{
+  "name": "routine-check-front",
+  "version": "1.0.0",
+  "description": "react frontend for routine-check app",
+  "main": "index.js",
+  "scripts": {
+    "bulid": "webpack",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheGhost902/routine-check-front.git"
+  },
+  "keywords": [
+    "react",
+    "app",
+    "js"
+  ],
+  "author": "TheGhost902",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheGhost902/routine-check-front/issues"
+  },
+  "homepage": "https://github.com/TheGhost902/routine-check-front#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
