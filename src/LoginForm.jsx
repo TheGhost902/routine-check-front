@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 function LoginForm() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    let history = useHistory()
 
     function changeLogin(e) {
         setLogin(e.target.value)
@@ -23,6 +25,7 @@ function LoginForm() {
         })
 
         console.log(await response.json())
+        history.push('/main')
     }
 
     return (
