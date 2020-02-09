@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
-import LoginForm from './LoginForm'
-import MainScreen from './MainScreen'
-import DoneScreen from './DoneScreen'
-import FailScreen from './FailScreen'
-import Navigation from './Navigation'
+import LoginForm from './components/LoginForm'
+import MainScreen from './components/MainScreen'
+import DoneScreen from './components/DoneScreen'
+import FailScreen from './components/FailScreen'
+import Navigation from './components/Navigation'
 
 function App() {
     return (
@@ -34,8 +36,10 @@ function App() {
 }
 
 ReactDOM.render(
-                <BrowserRouter>
-                    <App/>
-                </BrowserRouter>,
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </Provider>,
                 document.getElementById('root')
 )

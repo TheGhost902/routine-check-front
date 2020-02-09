@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { updateToken, updateRefreshToken, updateUserId } from '../redux/actionCreators'
 
-function LoginForm() {
+const mapDispatchToProps = {
+    updateToken,
+    updateRefreshToken,
+    updateUserId
+}
+
+function LoginForm({ updateToken, updateRefreshToken, updateUserId }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     let history = useHistory()
@@ -16,16 +24,29 @@ function LoginForm() {
     async function formSubmit(e) {
         e.preventDefault()
 
-        const response = await fetch('/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({login, password})
-        })
+        try {
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({login, password})
+            })
+    
+            const data = await response.json()
 
-        console.log(await response.json())
-        history.push('/main')
+            if (data.token) {
+                updateToken(data.token)
+                updateRefreshToken(data.refreshToken)
+                updateUserId(data.userId)
+                
+                history.push('/main')
+            } else {
+                alert(data.message)
+            }
+        } catch (err) {
+            alert('Network problems, please try again')
+        }
     }
 
     return (
@@ -51,4 +72,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm
+export default connect(null, mapDispatchToProps)(LoginForm)
