@@ -1,9 +1,8 @@
-import { UPDATE_TOKEN, UPDATE_REFRESH_TOKEN, UPDATE_USER_ID } from './actionTypes'
+import { LOGIN_ACTION, ROUTINES_FETCHED } from './actionTypes'
 
 const initialState = {
-    token: '',
-    refreshToken: '',
-    userId: ''
+    userId: '',
+    routines: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,17 +10,17 @@ const reducer = (state = initialState, action) => {
     console.log(action.payload)
 
     switch (action.type) {
-        case UPDATE_TOKEN: {
-            return {...state, token: action.payload}
-        }
-        case UPDATE_REFRESH_TOKEN: {
-            localStorage.setItem('refreshToken', action.payload)
-            return {...state, refreshToken: action.payload}
-        }
-        case UPDATE_USER_ID: {
-            localStorage.setItem('userId', action.payload)
-            return {...state, userId: action.payload}
-        }
+        case LOGIN_ACTION:
+            return {
+                ...state,
+                userId: action.payload
+            }
+        case ROUTINES_FETCHED:
+            return {
+                ...state,
+                routines: action.payload
+            }
+
     }
 
     return state

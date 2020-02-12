@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateToken, updateRefreshToken, updateUserId } from '../redux/actionCreators'
+import { loginAction } from '../redux/actionCreators'
 
 const mapDispatchToProps = {
-    updateToken,
-    updateRefreshToken,
-    updateUserId
+    loginAction
 }
 
-function LoginForm({ updateToken, updateRefreshToken, updateUserId }) {
+function LoginForm({ loginAction }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     let history = useHistory()
@@ -32,20 +30,19 @@ function LoginForm({ updateToken, updateRefreshToken, updateUserId }) {
                 },
                 body: JSON.stringify({login, password})
             })
-    
             const data = await response.json()
 
-            if (data.token) {
-                updateToken(data.token)
-                updateRefreshToken(data.refreshToken)
-                updateUserId(data.userId)
-                
-                history.push('/main')
-            } else {
+            if (data.message) {
                 alert(data.message)
             }
+
+            if (data.userId && response.ok) {
+                loginAction(data.userId)
+                history.push('/main')
+            }
+            
         } catch (err) {
-            alert('Network problems, please try again')
+            alert('Some Network problems...')
         }
     }
 

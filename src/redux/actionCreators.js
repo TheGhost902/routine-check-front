@@ -1,16 +1,11 @@
-import { UPDATE_TOKEN, UPDATE_REFRESH_TOKEN, UPDATE_USER_ID } from './actionTypes'
+import { LOGIN_ACTION, ROUTINES_FETCHED } from './actionTypes'
 
-export const updateToken = token => ({
-    type: UPDATE_TOKEN,
-    payload: token
+export const loginAction = userId => ({
+    type: LOGIN_ACTION,
+    payload: userId
 })
 
-export const updateRefreshToken = token => ({
-    type: UPDATE_REFRESH_TOKEN,
-    payload: token
-})
-
-export const updateUserId = id => ({
-    type: UPDATE_USER_ID,
-    payload: id
+export const routinesFetched = arrayOfRoutines => ({
+    type: ROUTINES_FETCHED,
+    payload: arrayOfRoutines
 })
