@@ -7,6 +7,15 @@ const mapDispatchToProps = {
 }
 const mapStateToProps = ({ routines }) => ({routines})
 
+function createRoutine(title, intervalInDays) {
+    return {
+        title,
+        startDate: new Date(),
+        intervalInDays,
+        failed: []
+    }
+}
+
 function MainScreen({ routinesFetched, routines }) {
     async function updateData() {
         try {

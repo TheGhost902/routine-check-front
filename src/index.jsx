@@ -9,11 +9,13 @@ import MainScreen from './components/MainScreen'
 import DoneScreen from './components/DoneScreen'
 import FailScreen from './components/FailScreen'
 import Navigation from './components/Navigation'
+import AddScreen from './components/AddScreen'
 
 function App() {
     return (
         <>
             <Navigation/>
+            <hr/>
             <Switch>
                 <Route path="/done">
                     <DoneScreen/>
@@ -25,6 +27,10 @@ function App() {
 
                 <Route path="/main">
                     <MainScreen/>
+                </Route>
+
+                <Route path="/add">
+                    <AddScreen/>
                 </Route>
 
                 <Route path="/">

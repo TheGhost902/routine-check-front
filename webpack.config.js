@@ -10,8 +10,9 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
+        historyApiFallback: true,
         proxy: {
-            '/': 'http://localhost:3001'
+            '/auth': 'http://localhost:3001'
         }
     },
     module: {
