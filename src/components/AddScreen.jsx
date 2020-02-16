@@ -15,17 +15,32 @@ function AddScreen({ addNewRoutine }) {
         setRadioValue(e.target.value)
     }
 
-    function formSubmit(e) {
+    async function formSubmit(e) {
         e.preventDefault()
 
         const routineData = {
             title: titleValue,
             value: radioValue === 'custom' ? customValue : radioValue,
-            created: new Date().getTime(),
-            failed: []
         }
 
-        addNewRoutine(routineData)
+        try {
+            const response = await fetch('/routines/add', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(routineData)
+            })
+            const data = await response.json()
+
+            if (data.message) alert(data.message)
+
+            if (response.ok) addNewRoutine(routineData)
+            
+        } catch (err) {
+            console.log(err)
+            alert('Some Network Problems')            
+        }
     }
     
     return (

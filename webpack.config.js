@@ -12,7 +12,8 @@ module.exports = {
         contentBase: './dist',
         historyApiFallback: true,
         proxy: {
-            '/auth': 'http://localhost:3001'
+            // '/auth': 'http://localhost:3001',
+            '/': 'http://localhost:3001/'
         }
     },
     module: {
