@@ -1,25 +1,17 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { routinesFetched } from '../redux/actionCreators'
+import { routinesFetched, deleteRoutine } from '../redux/actionCreators'
 
 const mapDispatchToProps = {
-    routinesFetched
+    routinesFetched,
+    deleteRoutine
 }
 const mapStateToProps = ({ routines }) => ({routines})
 
-function createRoutine(title, intervalInDays) {
-    return {
-        title,
-        startDate: new Date(),
-        intervalInDays,
-        failed: []
-    }
-}
-
-function MainScreen({ routinesFetched, routines }) {
+function MainScreen({ routinesFetched, deleteRoutine, routines }) {
     async function updateData() {
         try {
-            const response = await fetch('/test')
+            const response = await fetch('/routines')
             const parsedResponse = await response.json()
 
             if (parsedResponse.message) {
@@ -33,6 +25,29 @@ function MainScreen({ routinesFetched, routines }) {
             alert('Some Network problems...')
         }
     }
+    async function deleteSomeRoutine(id) {
+        try {
+            const response = await fetch('/routines', {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({routineId: id})
+            })
+            const parsedResponse = await response.json()
+
+            if (parsedResponse.message) {
+                alert(parsedResponse.message)
+            }
+
+            if (parsedResponse.routineId) {
+                deleteRoutine(parsedResponse.routineId)
+            }
+
+        } catch (err) {
+            alert('Some Network problems...')
+        } 
+    }
 
     useEffect(() => {
         updateData()
@@ -45,7 +60,12 @@ function MainScreen({ routinesFetched, routines }) {
                 <p>Loading...</p>
                 :
                 <ul>
-                    {routines.map((routine, i) => <li key={i}>{routine}</li>)}
+                    {routines.map(routine =>
+                        <li key={routine._id}>
+                            {routine.title}
+                            <button onClick={() => deleteSomeRoutine(routine._id)}>delete</button>
+                        </li>
+                    )}
                 </ul>
             }
             <button onClick={updateData}>Refresh</button>

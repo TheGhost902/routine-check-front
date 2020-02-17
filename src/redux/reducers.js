@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, ROUTINES_FETCHED, ADD_NEW_ROUTINE } from './actionTypes'
+import { LOGIN_ACTION, ROUTINES_FETCHED, ADD_NEW_ROUTINE, DELETE_ROUTINE } from './actionTypes'
 
 const initialState = {
     userId: '',
@@ -24,6 +24,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 routines: [...state.routines, action.payload]
+            }
+        case DELETE_ROUTINE:
+            return {
+                ...state,
+                routines: state.routines.filter(routine => routine._id !== action.payload)
             }
     }
 

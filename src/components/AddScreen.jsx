@@ -35,8 +35,11 @@ function AddScreen({ addNewRoutine }) {
 
             if (data.message) alert(data.message)
 
-            if (response.ok) addNewRoutine(routineData)
-            
+            if (response.ok) addNewRoutine(data.routine)
+
+            setRadioValue('1')
+            setCustomValue('')
+            setTitleValue('')
         } catch (err) {
             console.log(err)
             alert('Some Network Problems')            
