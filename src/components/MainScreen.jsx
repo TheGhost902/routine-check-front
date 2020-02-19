@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { routinesFetched, deleteRoutine } from '../redux/actionCreators'
+import { Link } from 'react-router-dom'
 
 const mapDispatchToProps = {
     routinesFetched,
@@ -64,6 +65,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
                         <li key={routine._id}>
                             {routine.title}
                             <button onClick={() => deleteSomeRoutine(routine._id)}>delete</button>
+                            <Link to={`/routine/${routine._id}`}>more...</Link>
                         </li>
                     )}
                 </ul>

@@ -10,6 +10,7 @@ import DoneScreen from './components/DoneScreen'
 import FailScreen from './components/FailScreen'
 import Navigation from './components/Navigation'
 import AddScreen from './components/AddScreen'
+import Routine from './components/Routine'
 
 function App() {
     return (
@@ -31,6 +32,10 @@ function App() {
 
                 <Route path="/add">
                     <AddScreen/>
+                </Route>
+
+                <Route path="/routine/:id">
+                    <Routine/>
                 </Route>
 
                 <Route path="/">
