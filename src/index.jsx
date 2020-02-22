@@ -11,10 +11,12 @@ import FailScreen from './components/FailScreen'
 import Navigation from './components/Navigation'
 import AddScreen from './components/AddScreen'
 import Routine from './components/Routine'
+import LoadingWheel from './components/LoadingWheel'
 
 function App() {
     return (
         <>
+            <LoadingWheel/>
             <Navigation/>
             <hr/>
             <Switch>

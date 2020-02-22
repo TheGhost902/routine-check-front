@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, ROUTINES_FETCHED, ADD_NEW_ROUTINE, DELETE_ROUTINE } from './actionTypes'
+import { LOGIN_ACTION, ROUTINES_FETCHED, ADD_NEW_ROUTINE, DELETE_ROUTINE, START_END_FETCHING } from './actionTypes'
 
 export const loginAction = userId => ({
     type: LOGIN_ACTION,
@@ -18,4 +18,9 @@ export const addNewRoutine = routineData => ({
 export const deleteRoutine = routineId => ({
     type: DELETE_ROUTINE,
     payload: routineId
+})
+
+export const startEndFetching = startEnd => ({
+    type: START_END_FETCHING,
+    payload: startEnd
 })

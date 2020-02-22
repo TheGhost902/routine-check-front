@@ -98,9 +98,9 @@ function AddScreen({ addNewRoutine }) {
                     <input
                         type="radio"
                         name="repeat"
-                        value="month"
+                        value="1m"
                         id="repeat4"
-                        checked={radioValue === 'month'}
+                        checked={radioValue === '1m'}
                         onChange={radioButtonChange}
                     />
                     <label htmlFor="repeat4">Every Month</label>

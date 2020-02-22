@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { routinesFetched, deleteRoutine } from '../redux/actionCreators'
 import { Link } from 'react-router-dom'
+import { updateRoutinesData } from '../utils'
 
 const mapDispatchToProps = {
     routinesFetched,
@@ -10,22 +11,6 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ routines }) => ({routines})
 
 function MainScreen({ routinesFetched, deleteRoutine, routines }) {
-    async function updateData() {
-        try {
-            const response = await fetch('/routines')
-            const parsedResponse = await response.json()
-
-            if (parsedResponse.message) {
-                alert(parsedResponse.message)
-            }
-
-            if (parsedResponse.routines) {
-                routinesFetched(parsedResponse.routines)
-            }
-        } catch (err) {
-            alert('Some Network problems...')
-        }
-    }
     async function deleteSomeRoutine(id) {
         try {
             const response = await fetch('/routines', {
@@ -51,14 +36,14 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
     }
 
     useEffect(() => {
-        updateData()
+        updateRoutinesData(routinesFetched)
     }, [])
 
     return (
         <>
             <h1>Main Screen</h1>
             {!routines.length ?
-                <p>Loading...</p>
+                <p>No Routines...</p>
                 :
                 <ul>
                     {routines.map(routine =>
@@ -70,7 +55,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
                     )}
                 </ul>
             }
-            <button onClick={updateData}>Refresh</button>
+            <button onClick={() => updateRoutinesData(routinesFetched)}>Refresh</button>
         </>
     )
 }

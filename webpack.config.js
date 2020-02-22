@@ -14,7 +14,8 @@ module.exports = {
         proxy: {
             // '/auth': 'http://localhost:3001',
             '/': 'http://localhost:3001/'
-        }
+        },
+        hot: true
     },
     module: {
         rules: [
