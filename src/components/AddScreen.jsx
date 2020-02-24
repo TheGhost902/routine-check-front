@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addNewRoutine } from '../redux/actionCreators'
+import toast from './toast'
 
 const mapDispatchToProps = {
     addNewRoutine
@@ -33,7 +34,7 @@ function AddScreen({ addNewRoutine }) {
             })
             const data = await response.json()
 
-            if (data.message) alert(data.message)
+            if (data.message) toast(data.message)
 
             if (response.ok) addNewRoutine(data.routine)
 
@@ -42,7 +43,7 @@ function AddScreen({ addNewRoutine }) {
             setTitleValue('')
         } catch (err) {
             console.log(err)
-            alert('Some Network Problems')            
+            toast('Some Network Problems')            
         }
     }
     

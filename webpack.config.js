@@ -15,7 +15,10 @@ module.exports = {
             // '/auth': 'http://localhost:3001',
             '/': 'http://localhost:3001/'
         },
-        hot: true
+        hot: true,
+        host: '192.168.100.5',
+        port: '8080',
+        disableHostCheck: true
     },
     module: {
         rules: [

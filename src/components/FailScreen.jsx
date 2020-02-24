@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { routineHistory, createFormattedDate, updateRoutinesData } from '../utils'
 import { routinesFetched } from '../redux/actionCreators'
+import toast from './toast'
 
 const mapStateToProps = ({ routines }) => ({ routines })
 const mapDispatchToProps = {
@@ -35,14 +36,14 @@ function FailScreen({ routines, routinesFetched }) {
             })
             const data = await response.json()
 
-            if (data.message) alert(data.message)
+            if (data.message) toast(data.message)
 
             if (data.routine) {
                 updateRoutinesData(routinesFetched)
             }
         } catch (err) {
             console.log(err)
-            alert('Some Network Problems')
+            toast('Some Network Problems')
         }
     }
 

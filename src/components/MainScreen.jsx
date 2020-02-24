@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { routinesFetched, deleteRoutine } from '../redux/actionCreators'
 import { Link } from 'react-router-dom'
 import { updateRoutinesData } from '../utils'
+import toast from './toast'
 
 const mapDispatchToProps = {
     routinesFetched,
@@ -23,7 +24,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
             const parsedResponse = await response.json()
 
             if (parsedResponse.message) {
-                alert(parsedResponse.message)
+                toast(parsedResponse.message)
             }
 
             if (parsedResponse.routineId) {
@@ -31,7 +32,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
             }
 
         } catch (err) {
-            alert('Some Network problems...')
+            toast('Some Network problems...')
         } 
     }
 

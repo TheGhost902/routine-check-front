@@ -1,5 +1,6 @@
 import { startEndFetching } from '../redux/actionCreators'
 import store from '../redux/store'
+import toast from '../components/toast'
 
 export function createFormattedDate() {
     const created = new Date()
@@ -61,7 +62,7 @@ export async function updateRoutinesData(routinesFetched) {
         store.dispatch(startEndFetching(false))
 
         if (parsedResponse.message) {
-            alert(parsedResponse.message)
+            toast(parsedResponse.message)
         }
 
         if (parsedResponse.routines) {
@@ -70,6 +71,6 @@ export async function updateRoutinesData(routinesFetched) {
     } catch (err) {
         store.dispatch(startEndFetching(false))
 
-        alert('Some Network problems...')
+        toast('Some Network problems...')
     }
 }

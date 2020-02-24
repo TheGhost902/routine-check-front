@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginAction } from '../redux/actionCreators'
+import toast from './toast'
 
 const mapDispatchToProps = {
     loginAction
@@ -33,7 +34,7 @@ function LoginForm({ loginAction }) {
             const data = await response.json()
 
             if (data.message) {
-                alert(data.message)
+                toast(data.message)
             }
 
             if (data.userId && response.ok) {
@@ -42,7 +43,7 @@ function LoginForm({ loginAction }) {
             }
             
         } catch (err) {
-            alert('Some Network problems...')
+            toast('Some Network problems...')
         }
     }
 
