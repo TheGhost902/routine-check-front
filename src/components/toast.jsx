@@ -1,16 +1,19 @@
 import React, { useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
+// basic settings
 const ANIMATION_TIME = 500 // ms
-const TOAST_TIME = 5500 // ms
+const TOAST_TIME = 3500 // ms
 const BETWEEN_TOASTS = 20 // px
 
-export function Toast({ text, placeNumber, id, deleteToast }) {
+// Toast component
+const Toast = React.memo(function ({ text, placeNumber, id, deleteToast }) {
     const divRef = useRef()
     const placeNumberRef = useRef(placeNumber)
 
     placeNumberRef.current = placeNumber
 
+    // Fade in animation, set timer for Fade out animation
     useEffect(() => {
         requestAnimationFrame(() => {
             divRef.current.style.opacity = 1
@@ -30,6 +33,7 @@ export function Toast({ text, placeNumber, id, deleteToast }) {
         }, TOAST_TIME)
     }, [id, deleteToast])
 
+    // Changes the Toast place number
     useEffect(() => {
         requestAnimationFrame(() => {
             divRef.current.style.transform = `translate(-50%, calc(${100 * placeNumber}% + ${BETWEEN_TOASTS * (placeNumber + 1)}px))`
@@ -56,8 +60,9 @@ export function Toast({ text, placeNumber, id, deleteToast }) {
             {text}
         </div>
     )
-}
+})
 
+// React container for Toast components
 function ToastContainer({ toasts, deleteToast }) {
     return toasts.map((toast, i) =>
         <Toast
@@ -70,7 +75,7 @@ function ToastContainer({ toasts, deleteToast }) {
     )
 }
 
-// container for toasts in dom
+// container for toasts in DOM
 const container = document.createElement('div')
 document.body.appendChild(container)
 
@@ -78,11 +83,13 @@ document.body.appendChild(container)
 let toastId = 0
 let toastsArr = []
 
+// delete Toast function (must be outside the components)
 function deleteToast(id) {
     toastsArr = toastsArr.filter(toast => toast.id !== id)
     ReactDOM.render(<ToastContainer toasts={toastsArr} deleteToast={deleteToast} />, container)
 }
 
+// main function to create a toast message
 export default function toast(text) {
     // toast model
     const newToast = {
