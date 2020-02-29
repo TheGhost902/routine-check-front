@@ -2,26 +2,39 @@ import React, { useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 const ANIMATION_TIME = 500 // ms
-const TOAST_TIME = 2500 // ms
+const TOAST_TIME = 5500 // ms
 const BETWEEN_TOASTS = 20 // px
 
-export function Toast({ text, number, show }) {
+export function Toast({ text, placeNumber, id, deleteToast }) {
     const divRef = useRef()
+    const placeNumberRef = useRef(placeNumber)
 
-    // Fade in animation
-    useEffect(() => {
-        divRef.current.style.transform = `translateY(calc(${100 * number}% + ${BETWEEN_TOASTS * (number + 1)}px))`
-        divRef.current.style.opacity = 1
-        divRef.current.style.left = `${document.documentElement.clientWidth/2 - divRef.current.offsetWidth/2}px`
-    }, [number])
+    placeNumberRef.current = placeNumber
 
-    // Fade out animation
     useEffect(() => {
-        if (!show) {
-            divRef.current.style.transform = `translateY(${100 * number - 100}%)`
-            divRef.current.style.opacity = 0
-        }
-    }, [show, number])
+        requestAnimationFrame(() => {
+            divRef.current.style.opacity = 1
+        })
+
+        setTimeout(() => {
+            function onTransition() {
+                divRef.current.removeEventListener('transitionend', onTransition)
+                deleteToast(id)
+            }
+            divRef.current.addEventListener('transitionend', onTransition)
+
+            requestAnimationFrame(() => {
+                divRef.current.style.transform = `translate(-50%, ${100 * placeNumberRef.current - 100}%)`
+                divRef.current.style.opacity = 0
+            })
+        }, TOAST_TIME)
+    }, [id, deleteToast])
+
+    useEffect(() => {
+        requestAnimationFrame(() => {
+            divRef.current.style.transform = `translate(-50%, calc(${100 * placeNumber}% + ${BETWEEN_TOASTS * (placeNumber + 1)}px))`
+        })
+    }, [placeNumber])
 
     return (
         <div
@@ -29,15 +42,15 @@ export function Toast({ text, number, show }) {
             style={{
                 position: 'fixed',
                 top: 0,
-                // right: 20,
+                left: '50%',
                 padding: '10px 20px',
                 backgroundColor: 'white',
                 border: 'solid 3px black',
                 boxShadow: '0 10px 10px rgba(0,0,0,.3)',
-                transform: 'translateY(-100%)',
+                transform: 'translate(-50%, -100%)',
                 opacity: 0,
                 zIndex: 999,
-                transition: `all ${ANIMATION_TIME/1000}s ease-in-out`
+                transition: `all ${ANIMATION_TIME}ms ease-in-out`
             }}
         >
             {text}
@@ -45,47 +58,38 @@ export function Toast({ text, number, show }) {
     )
 }
 
-function ToastContainer({ toasts }) {
-    return (
-        <>
-            {toasts.map((toast, i) => <Toast key={toast.id} text={toast.text} number={i} show={toast.show}/>)}
-        </>
+function ToastContainer({ toasts, deleteToast }) {
+    return toasts.map((toast, i) =>
+        <Toast
+            key={toast.id}
+            text={toast.text}
+            placeNumber={i}
+            id={toast.id}
+            deleteToast={deleteToast}
+        />
     )
 }
 
-// container for toasts in doom
+// container for toasts in dom
 const container = document.createElement('div')
 document.body.appendChild(container)
 
 // toasts store
+let toastId = 0
 let toastsArr = []
+
+function deleteToast(id) {
+    toastsArr = toastsArr.filter(toast => toast.id !== id)
+    ReactDOM.render(<ToastContainer toasts={toastsArr} deleteToast={deleteToast} />, container)
+}
 
 export default function toast(text) {
     // toast model
     const newToast = {
         text,
-        id: Math.trunc(Date.now() * Math.random()),
-        show: true
+        id: toastId++
     } 
     toastsArr.push(newToast)
 
-    ReactDOM.render(<ToastContainer toasts={toastsArr}/>, container)
-
-    // first timeout for signal to Toast Fade out animation
-    setTimeout(() => {
-        toastsArr = toastsArr.map(toast => {
-            if (toast.id === newToast.id) {
-                toast.show = false
-                return toast
-            }
-            return toast
-        })
-        ReactDOM.render(<ToastContainer toasts={toastsArr}/>, container)
-
-        // second timeout for deleting Toast after Fade out animation
-        setTimeout(() => {
-            toastsArr = toastsArr.filter(toast => toast.show)
-            ReactDOM.render(<ToastContainer toasts={toastsArr}/>, container)
-        }, ANIMATION_TIME)
-    }, TOAST_TIME + ANIMATION_TIME)
+    ReactDOM.render(<ToastContainer toasts={toastsArr} deleteToast={deleteToast}/>, container)
 }
