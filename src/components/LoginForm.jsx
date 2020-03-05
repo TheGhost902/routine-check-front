@@ -39,7 +39,7 @@ function LoginForm({ loginAction }) {
 
             if (data.userId && response.ok) {
                 loginAction(data.userId)
-                history.push('/main')
+                history.push('/')
             }
             
         } catch (err) {

@@ -14,6 +14,7 @@ import Routine from './components/Routine'
 import LoadingWheel from './components/LoadingWheel'
 
 function App() {
+    console.log('STORE: ', store.getState())
     return (
         <>
             <LoadingWheel/>
@@ -28,10 +29,6 @@ function App() {
                     <FailScreen/>
                 </Route>
 
-                <Route path="/main">
-                    <MainScreen/>
-                </Route>
-
                 <Route path="/add">
                     <AddScreen/>
                 </Route>
@@ -40,9 +37,14 @@ function App() {
                     <Routine/>
                 </Route>
 
-                <Route path="/">
+                <Route path="/login">
                     <LoginForm/>
                 </Route>
+
+                <Route path="/">
+                    <MainScreen />
+                </Route>
+
             </Switch>
         </>
     )
