@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
+import './main.css'
+
 import LoginForm from './components/LoginForm'
 import MainScreen from './components/MainScreen'
 import FailScreen from './components/FailScreen'
@@ -15,10 +17,8 @@ import LoadingWheel from './components/LoadingWheel'
 function App() {
     return (
         <>
-            <button onClick={() => {console.log(store.getState())}}>STORE</button>
             <LoadingWheel/>
             <Navigation/>
-            <hr/>
             
             <Switch>
                 
