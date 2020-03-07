@@ -34,7 +34,7 @@ function AddScreen({ addNewRoutine }) {
             })
             const data = await response.json()
 
-            if (data.message) toast(data.message)
+            if (data.message) toast(data.message.text, data.message.type)
 
             if (response.ok) addNewRoutine(data.routine)
 
@@ -43,7 +43,7 @@ function AddScreen({ addNewRoutine }) {
             setTitleValue('')
         } catch (err) {
             console.log(err)
-            toast('Some Network Problems')            
+            toast('Some Network Problems', 'error')            
         }
     }
     

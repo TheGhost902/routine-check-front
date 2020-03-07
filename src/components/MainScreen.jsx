@@ -24,7 +24,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
             const parsedResponse = await response.json()
 
             if (parsedResponse.message) {
-                toast(parsedResponse.message)
+                toast(parsedResponse.message.text, parsedResponse.message.type)
             }
 
             if (parsedResponse.routineId) {
@@ -32,7 +32,7 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
             }
 
         } catch (err) {
-            toast('Some Network problems...')
+            toast('Some Network problems...', 'error')
         } 
     }
 

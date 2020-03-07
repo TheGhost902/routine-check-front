@@ -62,7 +62,7 @@ export async function updateRoutinesData(routinesFetched) {
         store.dispatch(startEndFetching(false))
 
         if (parsedResponse.message) {
-            toast(parsedResponse.message)
+            toast(parsedResponse.message.text, parsedResponse.message.type)
         }
 
         if (parsedResponse.routines) {
@@ -71,6 +71,6 @@ export async function updateRoutinesData(routinesFetched) {
     } catch (err) {
         store.dispatch(startEndFetching(false))
 
-        toast('Some Network problems...')
+        toast('Some Network problems...', 'error')
     }
 }

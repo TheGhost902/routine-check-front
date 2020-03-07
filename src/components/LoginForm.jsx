@@ -34,7 +34,7 @@ function LoginForm({ loginAction }) {
             const data = await response.json()
 
             if (data.message) {
-                toast(data.message)
+                toast(data.message.text, data.message.type)
             }
 
             if (data.userId && response.ok) {
@@ -43,7 +43,7 @@ function LoginForm({ loginAction }) {
             }
             
         } catch (err) {
-            toast('Some Network problems...')
+            toast('Some Network problems...', 'error')
         }
     }
 

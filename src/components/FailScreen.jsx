@@ -36,14 +36,14 @@ function FailScreen({ routines, routinesFetched }) {
             })
             const data = await response.json()
 
-            if (data.message) toast(data.message)
+            if (data.message) toast(data.message.text, data.message.type)
 
             if (data.routine) {
                 updateRoutinesData(routinesFetched)
             }
         } catch (err) {
             console.log(err)
-            toast('Some Network Problems')
+            toast('Some Network Problems', 'error')
         }
     }
 
