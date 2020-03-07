@@ -5,9 +5,15 @@ import ReactDOM from 'react-dom'
 const ANIMATION_TIME = 500 // ms
 const TOAST_TIME = 3500 // ms
 const BETWEEN_TOASTS = 20 // px
+const toastType = { // message color
+    basic: 'black',
+    error: '#a83232',
+    warning: '#FBD626',
+    success: '#48AC2D'
+}
 
 // Toast component
-const Toast = React.memo(function ({ text, placeNumber, id, deleteToast }) {
+const Toast = React.memo(function ({ text, placeNumber, id, type, deleteToast }) {
     const divRef = useRef()
     const placeNumberRef = useRef(placeNumber)
 
@@ -49,7 +55,7 @@ const Toast = React.memo(function ({ text, placeNumber, id, deleteToast }) {
                 left: '50%',
                 padding: '10px 20px',
                 backgroundColor: 'white',
-                border: 'solid 3px black',
+                border: 'solid 4px ' + toastType[type],
                 boxShadow: '0 10px 10px rgba(0,0,0,.3)',
                 transform: 'translate(-50%, -100%)',
                 opacity: 0,
@@ -70,6 +76,7 @@ function ToastContainer({ toasts, deleteToast }) {
             text={toast.text}
             placeNumber={i}
             id={toast.id}
+            type={toast.type}
             deleteToast={deleteToast}
         />
     )
@@ -90,11 +97,12 @@ function deleteToast(id) {
 }
 
 // main function to create a toast message
-export default function toast(text) {
+export default function toast(text, type = 'basic') {
     // toast model
     const newToast = {
         text,
-        id: toastId++
+        id: toastId++,
+        type
     } 
     toastsArr.push(newToast)
 
