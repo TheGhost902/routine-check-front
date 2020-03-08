@@ -1,42 +1,37 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Navigation() {
-    let location = useLocation()
-
-    function setActive(path) {
-        return location.pathname === path ? 'navigation__active-link' : ''
-    }
-
     return (
         <nav className="navigation">
-            <Link
+            <NavLink
                 to="/login"
-                className={setActive('/login')}
+                activeClassName="navigation__active-link"
             >
                 Login Page
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
                 to="/"
-                className={setActive('/')}
+                activeClassName="navigation__active-link"
+                exact
             >
                 Main Page
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
                 to="/fail"
-                className={setActive('/fail')}
+                activeClassName="navigation__active-link"
             >
                 Fail Page
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
                 to="/add"
-                className={setActive('/add')}
+                activeClassName="navigation__active-link"
             >
                 Add Page
-            </Link>
+            </NavLink>
         </nav>
     )
 }
