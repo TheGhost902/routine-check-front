@@ -35,3 +35,13 @@ body {
 .navigation a:hover {
     background-color: #ffffff;
 }
+
+
+/* LoginForm.jsx */
+.login-form {
+    border: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

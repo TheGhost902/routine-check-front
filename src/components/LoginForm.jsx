@@ -11,6 +11,7 @@ const mapDispatchToProps = {
 function LoginForm({ loginAction }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [loginToggle, setLoginToggle] = useState(true)
     let history = useHistory()
 
     function changeLogin(e) {
@@ -19,17 +20,17 @@ function LoginForm({ loginAction }) {
     function changePassword(e) {
         setPassword(e.target.value)
     }
-
-    async function formSubmit(e) {
-        e.preventDefault()
-
+    function changeLoginToggle() {
+        setLoginToggle(!loginToggle)
+    }
+    async function dataFetch(url) {
         try {
-            const response = await fetch('/auth/login', {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({login, password})
+                body: JSON.stringify({ login, password })
             })
             const data = await response.json()
 
@@ -41,28 +42,33 @@ function LoginForm({ loginAction }) {
                 loginAction(data.userId)
                 history.push('/')
             }
-            
+
         } catch (err) {
             toast('Some Network problems...', 'error')
+        }
+    }
+
+    function formSubmit(e) {
+        e.preventDefault()
+
+        if (loginToggle) {
+            dataFetch('/auth/login')
+        } else {
+            dataFetch('/auth/register')
         }
     }
 
     return (
         <>
         <form
-            style={{
-                border: 'solid black 2px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column'
-            }}
+            className="login-form"
             onSubmit={formSubmit}
         >
             <input type="text" placeholder="Login" value={login} onChange={changeLogin}/>
             <input type="password" placeholder="Password" value={password} onChange={changePassword}/>
             <div>
-                <button type="submit">Login</button>
+                <button type="button" onClick={changeLoginToggle}>Login or Register</button>
+                <button type="submit">{loginToggle? 'Login' : 'Register'}</button>
             </div>
             
         </form>
