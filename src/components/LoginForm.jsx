@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginAction } from '../redux/actionCreators'
 import toast from './toast'
+import Toggle from './Toggle'
 
 const mapDispatchToProps = {
     loginAction
@@ -11,7 +12,7 @@ const mapDispatchToProps = {
 function LoginForm({ loginAction }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    const [loginToggle, setLoginToggle] = useState(true)
+    const [registerToggle, setRegisterToggle] = useState(false)
     let history = useHistory()
 
     function changeLogin(e) {
@@ -20,8 +21,8 @@ function LoginForm({ loginAction }) {
     function changePassword(e) {
         setPassword(e.target.value)
     }
-    function changeLoginToggle() {
-        setLoginToggle(!loginToggle)
+    function changeRegisterToggle() {
+        setRegisterToggle(!registerToggle)
     }
     async function dataFetch(url) {
         try {
@@ -51,10 +52,10 @@ function LoginForm({ loginAction }) {
     function formSubmit(e) {
         e.preventDefault()
 
-        if (loginToggle) {
-            dataFetch('/auth/login')
-        } else {
+        if (registerToggle) {
             dataFetch('/auth/register')
+        } else {
+            dataFetch('/auth/login')
         }
     }
 
@@ -67,8 +68,13 @@ function LoginForm({ loginAction }) {
             <input type="text" placeholder="Login" value={login} onChange={changeLogin}/>
             <input type="password" placeholder="Password" value={password} onChange={changePassword}/>
             <div>
-                <button type="button" onClick={changeLoginToggle}>Login or Register</button>
-                <button type="submit">{loginToggle? 'Login' : 'Register'}</button>
+                <Toggle
+                    preLabel="Login"
+                    postLabel="Register"
+                    active={registerToggle}
+                    toggleFn={changeRegisterToggle}
+                />
+                <button type="submit">Submit</button>
             </div>
             
         </form>
