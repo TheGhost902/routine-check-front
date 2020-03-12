@@ -6,10 +6,7 @@ function Toggle({ toggleFn = () => {}, active = false, preLabel = '', postLabel 
     }
 
     return (
-        <div
-            type="button"
-            className="toggle"
-        >
+        <div className="toggle">
             <p className="toggle__label">
                 {preLabel}
             </p>

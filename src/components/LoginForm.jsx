@@ -65,18 +65,36 @@ function LoginForm({ loginAction }) {
             className="login-form"
             onSubmit={formSubmit}
         >
-            <input type="text" placeholder="Login" value={login} onChange={changeLogin}/>
-            <input type="password" placeholder="Password" value={password} onChange={changePassword}/>
-            <div>
-                <Toggle
-                    preLabel="Login"
-                    postLabel="Register"
-                    active={registerToggle}
-                    toggleFn={changeRegisterToggle}
-                />
-                <button type="submit">Submit</button>
-            </div>
-            
+            <input
+                className="login-form__input"
+                type="text"
+                placeholder="Login"
+                value={login}
+                onChange={changeLogin}
+            />
+
+            <input
+                className="login-form__input"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={changePassword}
+            />
+
+            <Toggle
+                preLabel="Login"
+                postLabel="Register"
+                active={registerToggle}
+                toggleFn={changeRegisterToggle}
+            />
+
+            <button
+                className="std-button login-form__button"
+                type="submit"
+            >
+                Submit
+            </button>
+        
         </form>
         </>
     )
