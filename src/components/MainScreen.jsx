@@ -41,23 +41,38 @@ function MainScreen({ routinesFetched, deleteRoutine, routines }) {
     }, [])
 
     return (
-        <>
-            <h1>Main Screen</h1>
+        <div className="main-screen">
+            <h1 className="std-title">All Routines:</h1>
+
+            <hr/>
+
             {!routines.length ?
-                <p>No Routines...</p>
+                <p className="main-screen__no-routines">
+                    There is no Routines
+                    <span> (you can <Link to="/add">add some</Link>)</span>
+                </p>
                 :
-                <ul>
+                <ul className="main-screen__list">
                     {routines.map(routine =>
-                        <li key={routine._id}>
-                            {routine.title}
-                            <button onClick={() => deleteSomeRoutine(routine._id)}>delete</button>
-                            <Link to={`/routine/${routine._id}`}>more...</Link>
+                        <li className="main-screen__list-element" key={routine._id}>
+                            <Link to={`/routine/${routine._id}`}>{routine.title}</Link>
+                            
+                            {/* <button onClick={() => deleteSomeRoutine(routine._id)}>delete</button> */}
+                            
                         </li>
                     )}
                 </ul>
             }
-            <button onClick={() => updateRoutinesData(routinesFetched)}>Refresh</button>
-        </>
+
+            <hr/>
+            
+            <button 
+                className="std-button main-screen__refresh-button"
+                onClick={() => updateRoutinesData(routinesFetched)}
+            >
+                Refresh
+            </button>
+        </div>
     )
 }
 
