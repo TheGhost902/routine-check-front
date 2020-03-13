@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loginAction } from '../redux/actionCreators'
+import { loginAction, startEndFetching } from '../redux/actionCreators'
 import toast from './toast'
 import Toggle from './Toggle'
 
 const mapDispatchToProps = {
-    loginAction
+    loginAction,
+    startEndFetching
 }
 
-function LoginForm({ loginAction }) {
+function LoginForm({ loginAction, startEndFetching }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [registerToggle, setRegisterToggle] = useState(false)
@@ -25,6 +26,7 @@ function LoginForm({ loginAction }) {
         setRegisterToggle(!registerToggle)
     }
     async function dataFetch(url) {
+        startEndFetching(true)
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -34,6 +36,8 @@ function LoginForm({ loginAction }) {
                 body: JSON.stringify({ login, password })
             })
             const data = await response.json()
+
+            startEndFetching(false)
 
             if (data.message) {
                 toast(data.message.text, data.message.type)
@@ -45,6 +49,7 @@ function LoginForm({ loginAction }) {
             }
 
         } catch (err) {
+            startEndFetching(false)
             toast('Some Network problems...', 'error')
         }
     }
