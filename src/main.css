@@ -34,6 +34,18 @@ ul {
 
     font-size: 2rem;
 }
+.std-markers {
+    display: flex;
+    flex-wrap: wrap;
+}
+.std-markers__item {
+    width: 10px;
+    height: 10px;
+
+    margin: 5px;
+
+    border: 3px solid black;
+}
 
 
 /* Navigation.jsx */
@@ -195,4 +207,32 @@ ul {
 }
 .main-screen__refresh-button {
     margin: 20px;
+}
+
+
+/* Routine.jsx */
+.routine {
+    padding: 10px;
+
+    font-size: 1.2rem;
+}
+.routine__markers {
+    margin-bottom: 10px;
+}
+.routine__title {
+    margin-top: 10px;
+
+    word-break: break-all;
+}
+.routine p {
+    margin: 10px 0;
+}
+.routine__done {
+    background-color: #82ff6996;
+}
+.routine__fail {
+    background-color: #ff7a7a96;
+}
+.routine__delete-button {
+    margin-top: 10px;
 }

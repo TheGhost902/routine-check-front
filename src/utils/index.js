@@ -1,4 +1,4 @@
-import { startEndFetching } from '../redux/actionCreators'
+import { startEndFetching, deleteRoutine } from '../redux/actionCreators'
 import store from '../redux/store'
 import toast from '../components/toast'
 
@@ -71,6 +71,36 @@ export async function updateRoutinesData(routinesFetched) {
     } catch (err) {
         store.dispatch(startEndFetching(false))
 
+        toast('Some Network problems...', 'error')
+    }
+}
+
+export async function deleteRoutineFetch(id) {
+    store.dispatch(startEndFetching(true))
+
+    try {
+        const response = await fetch('/routines', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ routineId: id })
+        })
+        
+        const data = await response.json()
+
+        store.dispatch(startEndFetching(false))
+
+        if (data.message) {
+            toast(data.message.text, data.message.type)
+        }
+
+        if (data.routineId) {
+            return data.routineId
+        }
+
+    } catch (err) {
+        store.dispatch(startEndFetching(false))
         toast('Some Network problems...', 'error')
     }
 }
