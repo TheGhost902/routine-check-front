@@ -4,7 +4,7 @@ body {
 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-button:focus, a:focus {
+button:focus, a:focus, input:focus {
     outline: #4d90fe auto 1px;
 }
 hr {
@@ -16,6 +16,7 @@ ul {
 
     list-style: none;
 }
+/* button */
 .std-button {
     padding: 10px;
 
@@ -29,11 +30,13 @@ ul {
 .std-button:hover, .std-button:focus {
     background-color: #fff;
 }
+/* main title */
 .std-title {
     margin: 0 20px 10px 20px;
 
     font-size: 2rem;
 }
+/* markers */
 .std-markers {
     display: flex;
     flex-wrap: wrap;
@@ -45,6 +48,42 @@ ul {
     margin: 5px;
 
     border: 3px solid black;
+}
+/* list */
+.std-list {
+    margin: 20px;
+}
+.std-list__element {
+    font-size: 1.5rem;
+}
+.std-list__element::before {
+    content: "";
+
+    margin-right: 0.3rem;
+
+    min-width: 0.8rem;
+    height: 0.8rem;
+
+    display: inline-block;
+
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.std-list__element a {
+    word-break: break-all;
+}
+/* link */
+.std-styled-link {
+    text-decoration: none;
+    color: #4d90fe;
+
+    border-bottom: solid 2px transparent;
+
+    transition: all .15s ease-in-out;
+}
+.std-styled-link:hover, .std-styled-link:focus {
+    border-bottom: solid 2px #4d90fe;
 }
 
 
@@ -171,40 +210,6 @@ ul {
 .main-screen__no-routines span {
     white-space: nowrap;
 }
-.main-screen a {
-    text-decoration: none;
-    color: #4d90fe;
-
-    border-bottom: solid 2px transparent;
-
-    transition: all .15s ease-in-out;
-}
-.main-screen a:hover, .main-screen a:focus {
-    border-bottom: solid 2px #4d90fe;
-}
-.main-screen__list {
-    margin: 20px;
-}
-.main-screen__list-element {
-    font-size: 1.5rem;
-}
-.main-screen__list-element::before {
-    content: "";
-
-    margin-right: 0.3rem;
-
-    min-width: 0.8rem;
-    height: 0.8rem;
-
-    display: inline-block;
-
-    box-sizing: border-box;
-    border: 2px solid black;
-    border-radius: 50%;
-}
-.main-screen__list-element a {
-    word-break: break-all;
-}
 .main-screen__refresh-button {
     margin: 20px;
 }
@@ -235,4 +240,24 @@ ul {
 }
 .routine__delete-button {
     margin-top: 10px;
+}
+
+
+/* FailScreen.jsx */
+.fail-screen {
+    padding: 10px;
+}
+.fail-screen__list {
+    margin: 20px;
+}
+.fail-screen__list-element {
+    margin: 10px 0;
+}
+.fail-screen__done-button {
+    margin-right: 10px;
+}
+.fail-screen__all-is-done {
+    font-size: 1.3rem;
+
+    margin: 20px 0;
 }

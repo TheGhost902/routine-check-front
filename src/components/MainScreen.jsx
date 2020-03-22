@@ -23,13 +23,13 @@ function MainScreen({ routinesFetched, routines }) {
             {!routines.length ?
                 <p className="main-screen__no-routines">
                     There is no Routines
-                    <span> (you can <Link to="/add">add some</Link>)</span>
+                    <span> (you can <Link to="/add" className="std-styled-link">add some</Link>)</span>
                 </p>
                 :
-                <ul className="main-screen__list">
+                <ul className="std-list">
                     {routines.map(routine =>
-                        <li className="main-screen__list-element" key={routine._id}>
-                            <Link to={`/routine/${routine._id}`}>{routine.title}</Link>
+                        <li className="std-list__element" key={routine._id}>
+                            <Link to={`/routine/${routine._id}`} className="std-styled-link">{routine.title}</Link>
                         </li>
                     )}
                 </ul>

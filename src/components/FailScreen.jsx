@@ -48,18 +48,28 @@ function FailScreen({ routines, routinesFetched }) {
     }
 
     return (
-        <>
-            <h1>Fail Screen</h1>
-            <h2>Today:</h2>
-            <ul>
-                {todayArr.map(item =>
-                    <li key={item.id}>
-                        <Link to={'/routine/' + item.id}>{item.title}</Link>
-                        <button onClick={() => doneRoutine(item.id)}>Done</button>
-                    </li>
-                )}
+        <div className="fail-screen">
+            <h1 className="std-title">Today's routine:</h1>
+            <hr/>
+            <ul className="std-list">
+                {todayArr.length?
+                    todayArr.map(item =>
+                        <li key={item.id} className="std-list__element fail-screen__list-element">
+                            <button
+                                className="std-button fail-screen__done-button"
+                                onClick={() => doneRoutine(item.id)}
+                            >
+                                Done
+                            </button>
+                            
+                            <Link to={'/routine/' + item.id} className="std-styled-link">{item.title}</Link>
+                        </li>
+                    )
+                    :
+                    <p className="fail-screen__all-is-done">All is Done</p>
+                }
             </ul>
-        </>
+        </div>
     )
 }
 
