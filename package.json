@@ -4,7 +4,7 @@
   "description": "react frontend for routine-check app",
   "main": "index.js",
   "scripts": {
-    "bulid": "webpack",
+    "build": "webpack",
     "start": "webpack-dev-server --open"
   },
   "repository": {
