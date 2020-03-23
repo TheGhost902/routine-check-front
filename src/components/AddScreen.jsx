@@ -48,15 +48,21 @@ function AddScreen({ addNewRoutine }) {
     }
     
     return (
-        <form onSubmit={formSubmit}>
+        <form onSubmit={formSubmit} className="add-page">
+            <h1 className="std-title">Add new Routine</h1>
+
+            <hr/>
+            
             <input
                 type="text"
+                className="add-page__input"
                 placeholder="Routine title..."
+                autoFocus={true}
                 value={titleValue}
                 onChange={e => setTitleValue(e.target.value)}
             />
 
-            <fieldset>
+            <fieldset className="add-page__fieldset">
                 <legend>Repeat</legend>
 
                 <div>
@@ -133,7 +139,7 @@ function AddScreen({ addNewRoutine }) {
                         
             </fieldset>
 
-            <button type="submit">Add</button>
+            <button type="submit" className="std-button add-screen__submit-button">Add</button>
         </form>
     )
 }

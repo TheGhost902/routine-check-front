@@ -261,3 +261,27 @@ ul {
 
     margin: 20px 0;
 }
+
+
+/* AddPage.jsx */
+.add-page {
+    padding: 10px;
+}
+.add-page__input {
+    margin: 20px;
+    padding: 10px;
+
+    border: 1px solid black;
+
+    font-size: 1.2rem;
+}
+.add-page__fieldset {
+    margin: 0 20px 20px 20px;
+
+    max-width: fit-content;
+
+    border: 1px solid black;
+}
+.add-screen__submit-button {
+    margin-left: 20px;
+}
